@@ -4,6 +4,10 @@
 # start containers
 docker-compose up -d
 
+# set firewall
+systemctl stop firewalld 
+systemctl disable firewalld 
+
 # show attributes
 nic=$(/usr/sbin/ifconfig | egrep '^ens|^eth' | cut -d':' -f1)
 ip=$(/usr/sbin/ifconfig $nic | grep 'inet ' | awk '{print $2}')
