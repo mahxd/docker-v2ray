@@ -9,8 +9,8 @@ systemctl stop firewalld
 systemctl disable firewalld 
 
 # show attributes
-nic=$(/usr/sbin/ifconfig | egrep '^ens|^eth' | cut -d':' -f1)
-ip=$(/usr/sbin/ifconfig $nic | grep 'inet ' | awk '{print $2}')
+ip=$(ip addr show $nic | grep 'inet ' | awk '{print $2}' | cut -d'/' -f1)
+nic=$(ip link | egrep ' ens| eth' | cut -d':' -f2)
 uuid=$(cat data/v2ray/config.json | grep '"id"' | cut -d'"' -f4)
 path=$(cat data/nginx/conf.d/v2ray.conf | grep location | grep -v '/ ' | awk '{print $2}')
 
