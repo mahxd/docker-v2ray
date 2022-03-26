@@ -1,7 +1,7 @@
 #!/bin/bash
 # author: gfw-breaker
 
-if [ -f /etc/rehat-release ]; then
+if [ -f /etc/redhat-release ]; then
 	yum remove -y docker docker-common docker-selinux docker-engine
 	yum install -y yum-utils device-mapper-persistent-data lvm2
 	yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
