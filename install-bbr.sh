@@ -24,9 +24,9 @@ fi
 idx=$(awk -F "'" '$1=="menuentry " {print i++ " : " $2}' /etc/grub2.cfg | grep -iv Rescue | head -n 1 | cut -d' ' -f1)
 grub2-set-default $idx
 
-read -p "Reboot OS to apply changes? " -n 1 -r
+read -p "Reboot OS to apply changes y/n? " -n 1 -r
 echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]
+if [[ $REPLY =~ ^[Yy]$ ]]
 then
     reboot
 else
