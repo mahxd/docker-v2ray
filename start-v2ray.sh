@@ -5,8 +5,22 @@
 docker-compose up -d
 
 # set firewall
-systemctl stop firewalld 
-systemctl disable firewalld 
+#systemctl stop firewalld 
+#systemctl disable firewalld 
+
+which yum >/dev/null && { echo Fedora flavour; OS=redhat; }
+which zypper >/dev/null && { echo Suse of sorts; OS=suse; }
+which apt-get >/dev/null && { echo Debian based; OS=debian; }
+
+if [[ $OS = 'suse' || $OS = 'redhat' ]]
+then
+  sudo firewall-cmd add-port 80/tcp --permannent
+  sudo firewall-cmd add-port 443/tcp --permannent
+  sudo firewall-cmd --reload
+else 
+  sudo ufw allow 80/tcp
+  sudo ufw allow 443/tcp
+fi
 
 # show attributes
 nic=$(ip link | egrep ' ens| eth| enp' | cut -d':' -f2)
